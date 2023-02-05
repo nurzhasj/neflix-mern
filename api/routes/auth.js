@@ -31,13 +31,17 @@ router.post("/login", async (request, response) => {
             email: request.body.email
         });
 
-        ! user && response.status(401).json("Wrong password or username!");
+        ! user && response
+            .status(401)
+            .json("Wrong password or username!");
 
         const bytes  = CryptoJS.AES.decrypt(user.password, process.env.SECRET_KEY);
         const originalPassword = bytes.toString(CryptoJS.enc.Utf8);   
 
         originalPassword !== request.body.password && 
-            response.status(401).json("Wrong password or username!");
+            response
+                .status(401)
+                .json("Wrong password or username!");
         
         // JWT Token Generation
         const accessToken = jwt.sign(

@@ -6,6 +6,10 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 // Authentication Router
 const authRoute = require("./routes/auth");
+// User Router
+const userRoute = require("./routes/users");
+// Movie Router
+const movieRouter = require("./routes/movies");
 
 const app = express();
 
@@ -23,6 +27,10 @@ mongoose.connect(process.env.MONGO_URL, {
 app.use(express.json());
 
 app.use("/api/auth", authRoute);
+
+app.use("/api/users", userRoute);
+
+app.use("/api/movie", movieRouter);
 
 app.listen(8800, () => {
     console.log("Backend server is running!");
