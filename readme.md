@@ -1,1 +1,1 @@
- My pet project for learning MERN
+ My pet project for learning MERN. I am making this for my portfolio.
