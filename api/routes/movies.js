@@ -24,7 +24,7 @@ router.post("/", verify, async (request, response) => {
     } else {
         response
             .status(403)
-            .json("You can't update other account's info")
+            .json("You can't add new movies")
     }
 });
 
@@ -54,7 +54,7 @@ router.put("/:id", verify, async (request, response) => {
     } else {
         response
             .status(403)
-            .json("You can't update other account's info")
+            .json("You can't update movie info")
     }
 });
 
@@ -81,7 +81,7 @@ router.delete("/:id", verify, async (request, response) => {
 });
 
 // Get
-router.get("/:id", verify, async (request, response) => {
+router.get("/find/:id", verify, async (request, response) => {
     try {
         const movie = await Movie.findById(request.params.id);
 
@@ -94,6 +94,28 @@ router.get("/:id", verify, async (request, response) => {
             .status(500)
             .json(err);
     } 
+});
+
+// Get All
+router.get("/", verify, async (request, response) => {
+    if (request.user.isAdmin) {
+        try {
+            const movies = await Movie.find();
+    
+            response
+                .status(200)
+                .json(movies.reverse());
+                    
+        } catch (err) {
+            response  
+                .status(500)
+                .json(err);
+        } 
+    } else {
+        response
+            .status(403)
+            .json("You are not allowed !");
+    }
 });
 
 // Get Random

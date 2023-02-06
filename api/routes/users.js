@@ -83,8 +83,7 @@ router.get("/find/:id", async (request, response) => {
 // Get All 
 router.get("/", verify, async (request, response) => {
     const query = request.query.new;
-    const userId = request.params.id;
-
+    
     if (request.user.isAdmin) {
         try {
             const users = query 
