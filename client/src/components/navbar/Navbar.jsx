@@ -1,5 +1,7 @@
 import "./navbar.scss";
 import { AiOutlineSearch } from "react-icons/ai"
+import { IoNotificationsOutline } from "react-icons/io5";
+import { AiOutlineArrowDown } from "react-icons/ai";
 
 const Navbar = () => {
   return (
@@ -19,8 +21,13 @@ const Navbar = () => {
             </div>
             
             <div className="right">
-                <AiOutlineSearch/>
+                <AiOutlineSearch className="icon"/>
+                <span>KID</span>
+                <IoNotificationsOutline/>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png" alt="" />
+                <AiOutlineArrowDown className="icon"/>
             </div>
+            
         </div>
     </div>
   )
