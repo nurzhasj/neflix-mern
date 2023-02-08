@@ -2,10 +2,21 @@ import "./navbar.scss";
 import { AiOutlineSearch } from "react-icons/ai"
 import { IoNotificationsOutline } from "react-icons/io5";
 import { AiOutlineArrowDown } from "react-icons/ai";
+import { useState } from "react";
 
 const Navbar = () => {
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    window.onscroll = () => {
+        setIsScrolled(window.pageYOffset === 0 ? false : true);
+
+        return () => (
+            window.onscroll = null
+        );  
+    };
+
   return (
-    <div className="navbar">
+    <div className={isScrolled ? "navbar scrolled" : "navbar"}>
         <div className="container">
             <div className="left">
                 <img 
@@ -22,10 +33,22 @@ const Navbar = () => {
             
             <div className="right">
                 <AiOutlineSearch className="icon"/>
+                
                 <span>KID</span>
+                
                 <IoNotificationsOutline/>
+                
                 <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png" alt="" />
-                <AiOutlineArrowDown className="icon"/>
+                
+                <div className="profile">
+                    <AiOutlineArrowDown className="icon"/>
+
+                    <div className="options">
+                        <span>Setttings</span>
+                        <span>Logout</span>
+                    </div>
+                </div>
+
             </div>
             
         </div>
