@@ -4,10 +4,33 @@ import { IoAddOutline } from "react-icons/io5";
 import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineDislike } from "react-icons/ai";
 import { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
 
-export default function ListItem({index}) {
+export default function ListItem({index, item}) {
   const [isHovered, setIsHovered] = useState(false);
+  const [movie, setMovie] = useState({});
   
+  useEffect( () => {
+      const getMovie = async() => {
+          try {
+              const response = axios.get(
+                "/movies/find/" + item,
+                {
+                  headers: {
+                    token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZGYzYmFjMTFmNzUwNDExYmRjOTUzZiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY3NjMzODQ4MiwiZXhwIjoxNjc2NTk3NjgyfQ.6u1nFz4LqmgQmC1RW1Pxjh_PywK2_AUfh5SiRDYtirY",
+                  },
+                }
+              );
+
+              setMovie(response.data); 
+          } catch(err) {
+              console.log(err);
+          }
+      };
+      getMovie();
+  }, [item]);
+
   return (
     <div 
       className="listItem"
@@ -20,9 +43,7 @@ export default function ListItem({index}) {
         />
         {isHovered && (
         <>
-        <video width="320" height="240" controls autoPlay={true} loop muted>
-            <source src="squid-game-trailer.mp4" type="video/mp4"/>
-        </video>    
+        <video src={movie.trailer} controls autoPlay={true} loop muted/>    
         <div className="itemInfo">
             <div className="icons">
                 <BsFillPlayFill className="icon"/>
@@ -31,15 +52,14 @@ export default function ListItem({index}) {
                 <AiOutlineDislike className="icon"/>
             </div>
             <div className="itemInfoTop">
-                <span>1 hour 14 mins</span>
-                <span className="limit">+16</span>
-                <span>1999</span>
+                <span>{movie.duration}</span>
+                <span className="limit">+{movie.limit}</span>
+                <span>{movie.year}</span>
             </div>
             <div className="desc">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+              {movie.desc}
             </div>
-            <div className="genre">Action</div>
+            <div className="genre">{movie.genre}</div>
         </div>
         </>
         )};

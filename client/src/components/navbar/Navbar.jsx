@@ -3,6 +3,7 @@ import { AiOutlineSearch } from "react-icons/ai"
 import { IoNotificationsOutline } from "react-icons/io5";
 import { AiOutlineArrowDown } from "react-icons/ai";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -24,9 +25,15 @@ const Navbar = () => {
                     alt="" 
                 />
 
-                <span>Homepage</span>
-                <span>Series</span>
-                <span>Movies</span>
+                <Link to="/" className="link">
+                    <span>Homepage</span>
+                </Link>
+                <Link to="/series" className="link">
+                    <span>Series</span>
+                </Link>
+                <Link to="/movies" className="link">
+                    <span>Movies</span>
+                </Link>
                 <span>New and Popular</span>
                 <span>My List</span>
             </div>
